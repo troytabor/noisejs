@@ -12,6 +12,8 @@
  * Stefan Gustavson. You may use it as you see fit, but
  * attribution is appreciated.
  *
+ * UPDATE: Troy Tabor - 2019-12-25
+ * :: Replaced Math.floor with ~~
  */
 
 (function(global){
@@ -58,7 +60,7 @@
       seed *= 65536;
     }
 
-    seed = Math.floor(seed);
+    seed = ~~seed;
     if(seed < 256) {
       seed |= seed << 8;
     }
@@ -96,8 +98,8 @@
     var n0, n1, n2; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
     var s = (xin+yin)*F2; // Hairy factor for 2D
-    var i = Math.floor(xin+s);
-    var j = Math.floor(yin+s);
+    var i = ~~(xin+s);
+    var j = ~~(yin+s);
     var t = (i+j)*G2;
     var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed.
     var y0 = yin-j+t;
@@ -155,9 +157,9 @@
 
     // Skew the input space to determine which simplex cell we're in
     var s = (xin+yin+zin)*F3; // Hairy factor for 2D
-    var i = Math.floor(xin+s);
-    var j = Math.floor(yin+s);
-    var k = Math.floor(zin+s);
+    var i = ~~(xin+s);
+    var j = ~~(yin+s);
+    var k = ~~(zin+s);
 
     var t = (i+j+k)*G3;
     var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed.
@@ -250,7 +252,7 @@
   // 2D Perlin Noise
   module.perlin2 = function(x, y) {
     // Find unit grid cell containing point
-    var X = Math.floor(x), Y = Math.floor(y);
+    var X = ~~x, Y = ~~y;
     // Get relative xy coordinates of point within that cell
     x = x - X; y = y - Y;
     // Wrap the integer cells at 255 (smaller integer period can be introduced here)
@@ -275,7 +277,7 @@
   // 3D Perlin Noise
   module.perlin3 = function(x, y, z) {
     // Find unit grid cell containing point
-    var X = Math.floor(x), Y = Math.floor(y), Z = Math.floor(z);
+    var X = ~~x, Y = ~~y, Z = ~~z;
     // Get relative xyz coordinates of point within that cell
     x = x - X; y = y - Y; z = z - Z;
     // Wrap the integer cells at 255 (smaller integer period can be introduced here)
